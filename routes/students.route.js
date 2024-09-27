@@ -13,6 +13,6 @@ router.put('/update/:id', updateStudentById)
 
 router.delete('/delete/:id', deleteStudentById)
 
-router.get('/search', searchByWord)
+router.get('/search/:word', searchByWord)
 
 module.exports = router;

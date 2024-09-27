@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({ limit: '500mb', extended: true }));
 app.use(express.json({ limit: '500mb' })); // Set limit for JSON bodies
 app.use(morgan('tiny'));
-
 app.use(cors({
     origin: "*",
 }));
