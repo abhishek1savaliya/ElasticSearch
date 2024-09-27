@@ -161,7 +161,7 @@ const deleteStudentById = async (req, res) => {
 };
 
 const searchByWord = async (req, res) => {
-    const { word } = req.params;
+    const { word } = req.body;
 
     try {
         const result = await esClient.search({
