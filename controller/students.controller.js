@@ -168,12 +168,28 @@ const searchByWord = async (req, res) => {
             index: 'students',
             body: {
                 query: {
-                    multi_match: {
-                        query: word,
-                        fields: ["firstName", "lastName"],
-                        fuzziness: "AUTO"
+                    bool: {
+                        should: [
+                            {
+                                match: {
+                                    firstName: {
+                                        query: word,
+                                        fuzziness: "AUTO"
+                                    }
+                                }
+                            },
+                            {
+                                match: {
+                                    lastName: {
+                                        query: word,
+                                        fuzziness: "AUTO"
+                                    }
+                                }
+                            }
+                        ]
                     }
-                }
+                },
+                size: 10000  
             }
         });
 
