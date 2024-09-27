@@ -1,13 +1,26 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Searchresult from '../component/Searchresult/page';
 
 const Main = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
 
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
     };
+
+    // Debounce effect
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchQuery(searchQuery);
+        }, 300); // Adjust delay as needed
+
+        // Cleanup timeout on unmount or when searchQuery changes
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchQuery]);
 
     return (
         <div className="flex flex-col justify-center items-center p-4 sm:p-6 md:p-8">
@@ -20,7 +33,7 @@ const Main = () => {
                     className="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 />
             </div>
-            <Searchresult word={searchQuery} />
+            <Searchresult word={debouncedSearchQuery} />
         </div>
     );
 };
