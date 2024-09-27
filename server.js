@@ -23,6 +23,37 @@ elasticClient.info()
 
 app.use('/', studentsRoute);
 
+function keepServerAlive() {
+
+    console.log('Keeping the server alive...');
+    let x = 0;
+
+    const fetchActivationPatch = async () => {
+        try {
+            const response = await fetch('https://anotebookbackend.onrender.com/activate');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            console.log(x++)
+
+        } catch (error) {
+            console.error('Error fetching activation patch:', error);
+        }
+    };
+
+    setInterval(() => {
+        fetchActivationPatch();
+    }, 780000);
+}
+
+app.get('/activate', (req, res) => {
+    res.json({
+        data: 'success',
+        message: "Activation patch successfully fetched"
+    })
+})
+
 app.listen(PORT, () => {
+    keepServerAlive()
     console.log(`Server is running on PORT ${PORT}`);
 });

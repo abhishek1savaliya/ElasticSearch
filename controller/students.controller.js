@@ -1,5 +1,5 @@
-const esClient = require('../elasticsearch')
-const { faker } = require('@faker-js/faker');
+const esClient = require('../elasticsearch');
+const { generateStudentData } = require('../utils/logic');
 
 const getStudents = async (req, res) => {
     try {
@@ -192,23 +192,6 @@ const searchByWord = async (req, res) => {
 };
 
 
-
 module.exports = { getStudents, getStudentsById, addStudent, addBulkStudents, updateStudentById, deleteStudentById, searchByWord };
 
 
-const generateStudentData = async (numStudents) => {
-    const students = [];
-
-    for (let i = 0; i < numStudents; i++) {
-        const student = {
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName(),
-            age: faker.number.int({ min: 18, max: 30 }),
-            gender: faker.helpers.arrayElement(['Male', 'Female', 'Other']),
-            bio: faker.lorem.sentence()
-        };
-        students.push(student);
-    }
-
-    return students;
-};
