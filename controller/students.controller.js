@@ -171,10 +171,20 @@ const searchByWord = async (req, res) => {
                     bool: {
                         should: [
                             {
+                                prefix: {
+                                    firstName: word
+                                }
+                            },
+                            {
+                                prefix: {
+                                    lastName: word
+                                }
+                            },
+                            {
                                 match: {
                                     firstName: {
                                         query: word,
-                                        fuzziness: "AUTO"
+                                        fuzziness: "AUTO" // Fuzzy search for firstName
                                     }
                                 }
                             },
@@ -182,14 +192,14 @@ const searchByWord = async (req, res) => {
                                 match: {
                                     lastName: {
                                         query: word,
-                                        fuzziness: "AUTO"
+                                        fuzziness: "AUTO" // Fuzzy search for lastName
                                     }
                                 }
                             }
                         ]
                     }
                 },
-                size: 10000  
+                size: 10 
             }
         });
 
