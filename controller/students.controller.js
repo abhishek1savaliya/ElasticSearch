@@ -80,7 +80,9 @@ const addStudent = async (req, res) => {
 
 const addBulkStudents = async (req, res) => {
     try {
-        const students = await generateStudentData(100000);
+        const students = await generateStudentData(50000);
+         
+         console.log(students)
 
         if (!Array.isArray(students) || students.length === 0) {
             return res.status(400).json({ error: 'Students array is required' });
@@ -93,9 +95,31 @@ const addBulkStudents = async (req, res) => {
                 lastName: student.lastName,
                 age: student.age,
                 gender: student.gender,
-                bio: student.bio
+                bio: student.bio,
+                phone: student.phone,
+                email: student.email,
+                address: student.address,
+                dateOfBirth: student.dateOfBirth,
+                studentID: student.studentID,
+                course: student.course,
+                enrollmentYear: student.enrollmentYear,
+                GPA: student.GPA,
+                isInternationalStudent: student.isInternationalStudent,
+                emergencyContact: student.emergencyContact,
+                hobbies: student.hobbies,
+                dormitory: student.dormitory,
+                favoriteSubjects: student.favoriteSubjects,
+                bankDetails: {
+                    bankName: student.bankDetails.bankName,
+                    accountNumber: student.bankDetails.accountNumber,
+                    cardNumber: student.bankDetails.cardNumber,
+                    cardType: student.bankDetails.cardType,
+                    expirationDate: student.bankDetails.expirationDate,
+                    cvv: student.bankDetails.cvv,
+                }
             }
         ]);
+
 
         const result = await esClient.bulk({ body: bulkBody });
 
@@ -199,7 +223,7 @@ const searchByWord = async (req, res) => {
                         ]
                     }
                 },
-                size: 10 
+                size: 10
             }
         });
 
