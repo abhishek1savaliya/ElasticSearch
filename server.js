@@ -43,7 +43,7 @@ function keepServerAlive() {
 
     setInterval(() => {
         fetchActivationPatch();
-    }, 780000);
+    }, 5000);
 }
 
 app.get('/activate', (req, res) => {

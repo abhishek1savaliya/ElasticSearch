@@ -177,7 +177,12 @@ const searchByWord = async (req, res) => {
             }
         });
 
-        const studentsName = result.hits.hits.map(student => `${student._source.firstName} ${student._source.lastName}`);
+        const studentsName = result.hits.hits.map((student) => {
+            return {
+                id: student._id,
+                name: `${student._source.firstName} ${student._source.lastName}`
+            }
+        });
 
         res.json({
             success: true,
